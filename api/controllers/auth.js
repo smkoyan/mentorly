@@ -20,3 +20,47 @@ exports.signup = async ctx => {
         ctx.status = 500;
     }
 };
+
+exports.signin = async ctx => {
+    try {
+        const email = ctx.request.body.email;
+        const user = await User.findOne({ email: email }, 'password');
+
+        if (user === null) {
+            ctx.status = 400;
+            ctx.body = {
+                message: 'Wrong email or password',
+            };
+            return;
+        }
+
+        const password = ctx.request.body.password;
+
+        if (! (await bcrypt.compare(password, user.password))) {
+            ctx.status = 400;
+            ctx.body = {
+                message: 'Wrong email or password',
+            };
+            return;
+        }
+
+        // to make the logic of token signing reusable and clear
+        // controller action code we can extract this logic
+        // to it's dedicated `manager` (auth manager)
+        // also environment variables may be taken from `config`
+        const token = jwt.sign({
+            id: user._id,
+            email,
+        }, process.env.APP_KEY, {
+            expiresIn: process.env.JWT_EXPIRES_IN,
+        });
+
+        ctx.body = {
+            success: true,
+            token,
+        };
+    } catch (error) {
+        console.error(error);
+        ctx.status = 500;
+    }
+};
