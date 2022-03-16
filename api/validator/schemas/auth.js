@@ -33,4 +33,15 @@ module.exports = {
 
         auto: true,
     },
+
+    'POST:/api/signin': {
+        rules: {
+            body: Joi.object().keys({
+                email: common.email.required(),
+                password: Joi.string().required(),
+            }),
+        },
+
+        auto: true,
+    },
 };
