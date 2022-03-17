@@ -1,3 +1,4 @@
 const app = require('./app');
+const config = require('./api/config');
 
-app.listen(3000);
+app.listen(config.app.port || 3000);
