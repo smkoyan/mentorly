@@ -37,4 +37,20 @@ module.exports = {
 
         auto: true,
     },
+
+    'GET:/api/admin/transactions': {
+        rules: {
+            query: Joi.object().keys({
+                name: Joi.string(),
+                surname: Joi.string(),
+
+                type: Joi.string().valid('mentor', 'mentee'),
+
+                registeredAfter: Joi.date().iso(),
+                registeredBefore: Joi.date().iso(),
+            }),
+        },
+
+        auto: true,
+    },
 };
