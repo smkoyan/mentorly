@@ -14,3 +14,14 @@ exports.store = async ctx => {
     }
 };
 
+exports.index = async ctx => {
+    try {
+        const fields = await Field.find({}, 'name');
+
+        ctx.status = 200;
+        ctx.body = fields
+    } catch (error) {
+        console.error(error);
+        ctx.status = 500;
+    }
+};
