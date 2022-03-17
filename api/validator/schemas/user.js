@@ -27,4 +27,14 @@ module.exports = {
 
         auto: true,
     },
+
+    'GET:/api/users/:id': {
+        rules: {
+            params: Joi.object().keys({
+                id: common.ObjectId.required(),
+            }),
+        },
+
+        auto: true,
+    },
 };
