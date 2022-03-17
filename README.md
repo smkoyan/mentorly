@@ -11,6 +11,7 @@
 ### Users
 - GET  /api/users
 - GET  /api/users/:id
+- PUT  /api/users
 
 ### Fields
 - POST /api/fields
