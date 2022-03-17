@@ -8,6 +8,14 @@ exports.signup = async ctx => {
     try {
         let user = ctx.request.body;
 
+        const emailExists = (await User.count({email: user.email})) > 0;
+
+        if (emailExists) {
+            ctx.status = 409;
+            ctx.body = {message: `User with ${user.email} already exists`};
+            return;
+        }
+
         const fieldExists = (await Field.count({_id: user.field})) > 0;
 
         if (!fieldExists) {
