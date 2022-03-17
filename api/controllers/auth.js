@@ -1,10 +1,19 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const Field = require('../models/field');
 
 exports.signup = async ctx => {
     try {
         let user = ctx.request.body;
+
+        const fieldExists = (await Field.count({_id: user.field})) > 0;
+
+        if (!fieldExists) {
+            ctx.status = 422;
+            ctx.body = {message: 'Please provide valid field'};
+            return;
+        }
 
         user.password = await bcrypt.hash(user.password, await bcrypt.genSalt());
         user = await User.create(user);
