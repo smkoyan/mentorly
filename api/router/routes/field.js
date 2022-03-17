@@ -6,5 +6,9 @@ module.exports = router => {
         .post('/fields',
             authenticate,
             controller.store,
+        )
+        .get('/fields',
+            authenticate,
+            controller.index
         );
 };
