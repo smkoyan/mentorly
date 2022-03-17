@@ -5,6 +5,7 @@ module.exports = {
     app: {
         key: process.env.APP_KEY,
         port: process.env.APP_PORT,
+        host: process.env.APP_HOST,
     },
     db: {
         host: process.env.DB_HOST,
