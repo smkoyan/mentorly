@@ -6,5 +6,9 @@ module.exports = router => {
         .put('/users',
             authenticate,
             controller.update,
+        )
+        .get('/users/:id',
+           authenticate,
+            controller.show,
         );
 };
