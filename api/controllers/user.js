@@ -39,3 +39,18 @@ exports.show = async ctx => {
     }
 };
 
+exports.index = async ctx => {
+    try {
+        const users = await User
+            .find({}, 'name surname field position plans education experience about')
+            .filter(ctx)
+            .populate('field', 'name');
+
+        ctx.status = 200;
+        ctx.body = users;
+    } catch (error) {
+        console.error(error);
+        ctx.status = 500;
+    }
+};
+
