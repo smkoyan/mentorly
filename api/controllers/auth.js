@@ -2,6 +2,7 @@ const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Field = require('../models/field');
+const config = require('../config');
 
 exports.signup = async ctx => {
     try {
@@ -58,8 +59,8 @@ exports.signin = async ctx => {
         const token = jwt.sign({
             id: user._id,
             email,
-        }, process.env.APP_KEY, {
-            expiresIn: process.env.JWT_EXPIRES_IN,
+        }, config.app.key, {
+            expiresIn: config.jwt.expiresIn,
         });
 
         ctx.body = {

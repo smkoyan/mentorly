@@ -1,6 +1,7 @@
 require('dotenv').config();
+const config = require('./api/config');
 
-require('mongoose').connect(`mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`).then(
+require('mongoose').connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.database}`).then(
     () => { console.log('Successfully connected to database'); },
     error => { console.error('Fail to connect to database:', error); process.exit(1); }
 );

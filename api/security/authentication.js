@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const config = require('../config');
 
 module.exports = async (ctx, next) => {
     let token = ctx.get('Authorization').trim();
@@ -16,7 +17,7 @@ module.exports = async (ctx, next) => {
     let decoded = null;
 
     try {
-        decoded = jwt.verify(token, process.env.APP_KEY);
+        decoded = jwt.verify(token, config.app.key);
     } catch (error) {
         ctx.status = 401;
         ctx.body = {message: 'Token not found or has been expired'};
