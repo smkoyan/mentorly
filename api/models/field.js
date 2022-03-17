@@ -11,4 +11,4 @@ const fieldSchema = new Schema({
     timestamps: true,
 });
 
-module.exports = mongoose.model('Fields', fieldSchema);
+module.exports = mongoose.model('Field', fieldSchema);
