@@ -6,8 +6,6 @@ exports.signup = async ctx => {
     try {
         let user = ctx.request.body;
 
-        console.log(user);
-
         user.password = await bcrypt.hash(user.password, await bcrypt.genSalt());
         user = await User.create(user);
 
