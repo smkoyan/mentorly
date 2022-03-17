@@ -10,5 +10,9 @@ module.exports = router => {
         .get('/users/:id',
            authenticate,
             controller.show,
+        )
+        .get('/users',
+            authenticate,
+            controller.index,
         );
 };
